@@ -14,8 +14,11 @@ app = Flask(__name__)
 with open('/etc/config.json') as config_file:
   config = json.load(config_file)
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'instance', 'audio_ratings.db')
+
 app.config['SECRET_KEY'] = config.get('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'temp_audio'
 
