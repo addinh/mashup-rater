@@ -446,13 +446,15 @@ def get_rating_count():
 #         headers={"Content-Disposition": "attachment; filename=pandas_export.csv"}
 #     )
 
+# Ensure the database exists
+with app.app_context():
+    db.create_all()
+
+# Create upload directory if it doesn't exist
+temp_folder = app.config['UPLOAD_FOLDER']
+if not os.path.exists(temp_folder):
+    os.makedirs(temp_folder)
+
 
 if __name__ == '__main__':
-    # Ensure the database exists
-    with app.app_context():
-        db.create_all()
-    # Create upload directory if it doesn't exist
-    temp_folder = app.config['UPLOAD_FOLDER']
-    if not os.path.exists(temp_folder):
-        os.makedirs(temp_folder)
     app.run(debug=True)
