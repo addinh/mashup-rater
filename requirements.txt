@@ -1,0 +1,7 @@
+numpy
+pandas
+pyrubberband
+librosa
+flask
+flask-sqlalchemy
+flask-login
