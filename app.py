@@ -146,6 +146,7 @@ def rating_page():
                 50% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); }
                 100% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); }
             }
+            .contact-message { font-size: 1em; color: #666; margin-bottom: 10px; }
         </style>
     </head>
     <body>
@@ -195,6 +196,9 @@ def rating_page():
                     <label id="rating-essence-value">4</label>
                 </div>
                 <button id="submit-rating" onclick="submitRating()" disabled>Submit Rating</button>
+            </div>
+            <div class="contact-message">
+                If you encounter issues, please contact TA Dzung: <a href="mailto:addinh@connect.ust.hk">addinh@connect.ust.hk</a>
             </div>
         </div>
         <script>
@@ -276,7 +280,7 @@ def rating_page():
                         ratingSlider.disabled = false;
                     });
                 } catch (error) {
-                    alert('Error fetching track. Please try again.');
+                    alert('Error fetching track. Please contact TA Dzung at: addinh@connect.ust.hk');
                     console.error('Error fetching track:', error);
                 }
             }
@@ -303,7 +307,7 @@ def rating_page():
                         alert('Rating submitted successfully!');
                         getNewTrack();
                     } else {
-                        alert('Error submitting rating. Try again.');
+                        alert('Error submitting rating. Please contact TA Dzung at: addinh@connect.ust.hk');
                         console.error('Error submitting rating');
                     }
                 } catch (error) {
