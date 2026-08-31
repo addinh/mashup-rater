@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from random import randint
 import os
+import re
 from typing import List
 
 DATA = pd.read_csv('../AutoMixer/data/data.csv')
@@ -62,11 +63,12 @@ def originalMix(info: StemInfo):
 
 def getRandomStem(skip_id = None):
     randomRow = DATA.sample().iloc[0]
-    id = int(randomRow['ID'][0])
+    idVer = [item for item in re.split(r'(\d+)', randomRow['ID']) if item]
+    id = int(idVer[0])
     while id == skip_id:
-        randomRow = DATA.sample().iloc[0]
-        id = int(randomRow['ID'][0])
-    ver = randomRow['ID'][1:]
+        idVer = [item for item in re.split(r'(\d+)', randomRow['ID']) if item]
+        id = int(idVer[0])
+    ver = idVer[1] if len(idVer) == 2 else ''
     bpm = int(randomRow['BPM'])
     key = int(randomRow['EqKey'])
     length = int(randomRow['Length'])
@@ -93,15 +95,17 @@ def generateInstVocalsMashupMetadata():
     chosenKey = vocalsInfo.key # randint(0, 11)
     print("key:", chosenKey)
 
+    chunkSize = 8 if (instInfo.length % 8 == 0) and (vocalsInfo.length % 8 == 0) else 4
+
     minLength = min(instInfo.length, vocalsInfo.length)
-    length = randint(1, minLength // 4)
-    print("duration in bars:", length)
+    length = randint(1, minLength // chunkSize)
+    print("duration:", length, "x", chunkSize)
 
-    instOffset = 4 * randint(0, instInfo.length // 4 - length)
-    vocalsOffset = 4 * randint(0, vocalsInfo.length // 4 - length)
+    instOffset = chunkSize * randint(0, instInfo.length // chunkSize - length)
+    vocalsOffset = chunkSize * randint(0, vocalsInfo.length // chunkSize - length)
 
-    instMashupInfo = StemInfo(instInfo.id, instInfo.ver, instInfo.bpm, instOffset, 4 * length, avgBPM, getPitchShiftAmt(instInfo.key, chosenKey))
-    vocalsMashupInfo = StemInfo(vocalsInfo.id, vocalsInfo.ver, vocalsInfo.bpm, vocalsOffset, 4 * length, avgBPM, getPitchShiftAmt(vocalsInfo.key, chosenKey))
+    instMashupInfo = StemInfo(instInfo.id, instInfo.ver, instInfo.bpm, instOffset, chunkSize * length, avgBPM, getPitchShiftAmt(instInfo.key, chosenKey))
+    vocalsMashupInfo = StemInfo(vocalsInfo.id, vocalsInfo.ver, vocalsInfo.bpm, vocalsOffset, chunkSize * length, avgBPM, getPitchShiftAmt(vocalsInfo.key, chosenKey))
 
     instExcerpt = originalMix(instMashupInfo)
     vocalsExcerpt = originalMix(vocalsMashupInfo)
@@ -112,5 +116,7 @@ def generateInstVocalsMashupMetadata():
         'vocals': str(vocalsInfo),
         'bpm': avgBPM,
         'key': chosenKey,
-        'duration': length,
+        'instOffset': instOffset,
+        'vocalsOffset': vocalsOffset,
+        'duration': length * chunkSize,
     }

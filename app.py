@@ -146,7 +146,7 @@ def rating_page():
                 50% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); }
                 100% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); }
             }
-            .contact-message { font-size: 1em; color: #666; margin-bottom: 10px; }
+            .contact-message { font-size: 0.8em; color: #666; margin-bottom: 10px; }
         </style>
     </head>
     <body>
@@ -197,6 +197,7 @@ def rating_page():
                 </div>
                 <button id="submit-rating" onclick="submitRating()" disabled>Submit Rating</button>
             </div>
+            <br>
             <div class="contact-message">
                 If you encounter issues, please contact TA Dzung: <a href="mailto:addinh@connect.ust.hk">addinh@connect.ust.hk</a>
             </div>
