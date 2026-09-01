@@ -281,6 +281,7 @@ def rating_page():
                     loadingLabel.textContent = 'Audio loaded!';
                     ratingSliders.forEach((ratingSlider) => {
                         ratingSlider.disabled = false;
+                        ratingSlider.value = 4;
                     });
                 } catch (error) {
                     alert('Error fetching track, please refresh the page. If the problem persists, contact TA Dzung at: addinh@connect.ust.hk');
