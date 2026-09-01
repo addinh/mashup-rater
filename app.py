@@ -62,7 +62,7 @@ def index():
     <body>
         <div class="container">
             <h1>Pop Mashup Rating System</h1>
-            <p>Please enter your 8-digit Student ID. Make sure your ID number is correct, otherwise you won't get credits for completing this survey.</p>
+            <p>Please enter your 8-digit Student ID:</p>
             <form id="user-id-form">
                 <input type="text" id="user-id" placeholder="Enter 8-digit Student ID" required pattern="\d{8}">
                 <button type="submit">Submit ID</button>
