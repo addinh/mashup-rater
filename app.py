@@ -283,6 +283,10 @@ def rating_page():
                         ratingSlider.disabled = false;
                         ratingSlider.value = 4;
                     });
+                    document.getElementById('rating-overall-value').textContent = 4;
+                    document.getElementById('rating-harmony-value').textContent = 4;
+                    document.getElementById('rating-essence-value').textContent = 4;
+
                 } catch (error) {
                     alert('Error fetching track, please refresh the page. If the problem persists, contact TA Dzung at: addinh@connect.ust.hk');
                     console.error('Error fetching track:', error);
