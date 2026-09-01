@@ -185,11 +185,13 @@ def rating_page():
                     <input class="rating-slider" type="range" id="rating-overall-slider" min="1" max="7" value="4" disabled oninput="document.getElementById('rating-overall-value').textContent = this.value">
                     <label id="rating-overall-value">4</label>
                 </div>
+                <br>
                 <div class="rating-slider-item">
                     <label for="rating">Rate whether this mashup is <b>harmonically sound</b> to you from <b>1 (Disharmonious)</b> to <b>7 (Harmonious)</b>:</label>
                     <input class="rating-slider" type="range" id="rating-harmony-slider" min="1" max="7" value="4" disabled oninput="document.getElementById('rating-harmony-value').textContent = this.value">
                     <label id="rating-harmony-value">4</label>
                 </div>
+                <br>
                 <div class="rating-slider-item">
                     <label for="rating">Rate whether this mashup contains <b>memorable elements</b> of the original tracks from <b>1 (None of them)</b> to <b>7 (All of them)</b>:</label>
                     <input class="rating-slider" type="range" id="rating-essence-slider" min="1" max="7" value="4" disabled oninput="document.getElementById('rating-essence-value').textContent = this.value">
@@ -281,7 +283,7 @@ def rating_page():
                         ratingSlider.disabled = false;
                     });
                 } catch (error) {
-                    alert('Error fetching track. Please contact TA Dzung at: addinh@connect.ust.hk');
+                    alert('Error fetching track, please refresh the page. If the problem persists, contact TA Dzung at: addinh@connect.ust.hk');
                     console.error('Error fetching track:', error);
                 }
             }
