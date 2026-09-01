@@ -62,7 +62,7 @@ def index():
     <body>
         <div class="container">
             <h1>Audio Rating System</h1>
-            <p>Please enter your 8-digit Student ID or click "Start Without ID" to proceed with a temporary ID.</p>
+            <p>Please enter your 8-digit Student ID. Make sure your ID number is correct, otherwise you won't get credits for completing this survey.</p>
             <form id="user-id-form">
                 <input type="text" id="user-id" placeholder="Enter 8-digit Student ID" required pattern="\d{8}">
                 <button type="submit">Submit ID</button>
@@ -297,6 +297,10 @@ def rating_page():
                 try {
                     if (!currentTrackId) return;
                     if (tracksReady < 3) return;
+
+                    audioElements.forEach((audioElement) => {
+                        audioElement.pause();
+                    });
                     
                     const response = await fetch('/submit_rating', {
                         method: 'POST',
