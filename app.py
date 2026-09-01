@@ -61,7 +61,7 @@ def index():
     </head>
     <body>
         <div class="container">
-            <h1>Audio Rating System</h1>
+            <h1>Pop Mashup Rating System</h1>
             <p>Please enter your 8-digit Student ID. Make sure your ID number is correct, otherwise you won't get credits for completing this survey.</p>
             <form id="user-id-form">
                 <input type="text" id="user-id" placeholder="Enter 8-digit Student ID" required pattern="\d{8}">
@@ -96,7 +96,7 @@ def rating_page():
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Random Mashup Rater</title>
+        <title>Pop Mashup Rating System</title>
         <style>
             .container { max-width: 700px; margin: auto; padding: 20px; }
             .rating-form { margin-top: 20px; }
