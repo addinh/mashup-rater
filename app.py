@@ -151,7 +151,7 @@ def rating_page():
     </head>
     <body>
         <div class="container">
-            <h1>Random Mashup Rater</h1>
+            <h1>Pop Mashup Rating System</h1>
             <div class="welcome-message" id="welcome-message"></div>
             <div class="rating-count" id="rating-count"></div>
             <div id="loading-status" class="loading">Loading...</div>
