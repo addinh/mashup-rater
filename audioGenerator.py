@@ -2,7 +2,8 @@ import pyrubberband as pyrb
 import librosa
 import numpy as np
 import pandas as pd
-from random import randint
+from random import random, randint
+import math
 import os
 import re
 from typing import List
@@ -91,17 +92,23 @@ def generateInstVocalsMashupMetadata():
     instInfo = getRandomStem()
     vocalsInfo = getRandomStem(instInfo.id)
 
+    def doubleTimeChance(bpmSmall, bpmLarge):
+        r = bpmLarge / bpmSmall
+        p = math.log(r) / math.log(2)  # equals 0 at r=1, 1 at r=2, 0.5 at r=sqrt(2)
+        p = max(0.0, min(1.0, p))
+        return p
+
     if instInfo.bpm < vocalsInfo.bpm:
-        if randint(instInfo.bpm, 2 * instInfo.bpm) < vocalsInfo.bpm:
+        if random() < doubleTimeChance(instInfo.bpm, vocalsInfo.bpm):
             instInfo = toDoubleTime(instInfo)
     elif instInfo.bpm > vocalsInfo.bpm:
-        if randint(vocalsInfo.bpm, 2 * vocalsInfo.bpm) < instInfo.bpm:
+        if random() < doubleTimeChance(vocalsInfo.bpm, instInfo.bpm):
             vocalsInfo = toDoubleTime(vocalsInfo)
 
     print("inst:", instInfo)
     print("vocals:", vocalsInfo)
 
-    avgBPM = (instInfo.bpm + vocalsInfo.bpm) // 2
+    avgBPM = int((instInfo.bpm * vocalsInfo.bpm) ** 0.5)
     print("bpm:", avgBPM)
     chosenKey = vocalsInfo.key # randint(0, 11)
     print("key:", chosenKey)
