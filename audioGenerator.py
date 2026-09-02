@@ -74,6 +74,9 @@ def getRandomStem(skip_id = None):
     length = int(randomRow['Length'])
     return BasicStemInfo(id, ver, bpm, key, length)
 
+def toDoubleTime(info: BasicStemInfo):
+    return BasicStemInfo(info.id, info.ver, info.bpm * 2, info.key, info.length * 2)
+
 def getMashupID(instInfo: BasicStemInfo, vocalsInfo: BasicStemInfo):
     return f'{instInfo.id}{instInfo.ver}-{vocalsInfo.id}{vocalsInfo.ver}'
 
@@ -87,6 +90,14 @@ def getPitchShiftAmt(base: int, target: int):
 def generateInstVocalsMashupMetadata():
     instInfo = getRandomStem()
     vocalsInfo = getRandomStem(instInfo.id)
+
+    if instInfo.bpm < vocalsInfo.bpm:
+        if randint(instInfo.bpm, 2 * instInfo.bpm) < vocalsInfo.bpm:
+            instInfo = toDoubleTime(instInfo)
+    elif instInfo.bpm > vocalsInfo.bpm:
+        if randint(vocalsInfo.bpm, 2 * vocalsInfo.bpm) < instInfo.bpm:
+            vocalsInfo = toDoubleTime(vocalsInfo)
+
     print("inst:", instInfo)
     print("vocals:", vocalsInfo)
 
