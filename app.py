@@ -378,7 +378,7 @@ def generate_track():
     wavfile.write(os.path.join(temp_folder, mashup_filename), SR, mashup_data)
     
     # Create the track in the database
-    track = Track(mtd=mtd)
+    track = Track(mtd=mtd, created_at=datetime.now(timezone.utc))
     db.session.add(track)
     db.session.commit()
     
@@ -416,7 +416,7 @@ def submit_rating():
     # Ensure user exists
     user = User.query.get(user_id)
     if not user:
-        user = User(id=user_id)
+        user = User(id=user_id, created_at=datetime.now(timezone.utc))
         db.session.add(user)
         db.session.commit()
 
@@ -430,7 +430,7 @@ def submit_rating():
     # existing_rating = Rating.query.filter_by(user_id=user_id, track_id=track_id).first()
     # if existing_rating:
     #     return jsonify({'error': 'Already rated this track'}), 400
-    new_rating = Rating(user_id=user_id, track_id=track_id, rating_overall=rating_overall, rating_harmony=rating_harmony, rating_essence=rating_essence)
+    new_rating = Rating(user_id=user_id, track_id=track_id, rating_overall=rating_overall, rating_harmony=rating_harmony, rating_essence=rating_essence, created_at=datetime.now(timezone.utc))
     db.session.add(new_rating)
     db.session.commit()
     return jsonify({'message': 'Rating submitted successfully'})
